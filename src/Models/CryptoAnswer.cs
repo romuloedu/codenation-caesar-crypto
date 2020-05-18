@@ -5,7 +5,9 @@ namespace Codenation.CaesarCrypto.ConsoleApp.Models
 {
     public class CryptoAnswer
     {
-        [JsonProperty(PropertyName = "numero_casas")]
+        private const string FILE_NAME = "answer.json";
+
+        [JsonProperty("numero_casas")]
         public int NumSteps
         {
             get;
@@ -40,11 +42,13 @@ namespace Codenation.CaesarCrypto.ConsoleApp.Models
             set;
         }
 
+        public static bool HasFile => File.Exists(FILE_NAME);
+
         public static CryptoAnswer RecreateObject()
         {
             CryptoAnswer result = null;
 
-            using (TextReader reader = new StreamReader("answer.json"))
+            using (TextReader reader = new StreamReader(FILE_NAME))
             {
                 result = JsonConvert.DeserializeObject<CryptoAnswer>(
                     reader.ReadToEnd());
@@ -55,7 +59,7 @@ namespace Codenation.CaesarCrypto.ConsoleApp.Models
 
         public void SaveFile()
         {
-            using (TextWriter writer = new StreamWriter("answer.json"))
+            using (TextWriter writer = new StreamWriter(FILE_NAME))
             {
                 JsonSerializer serializer = new JsonSerializer();
 

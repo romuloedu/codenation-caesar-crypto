@@ -1,5 +1,3 @@
-using System.IO;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using RestSharp;
@@ -16,7 +14,7 @@ namespace Codenation.CaesarCrypto.ConsoleApp.Models
         {
             _client = new RestClient("https://api.codenation.dev/v1/challenge/dev-ps");
 
-            // Adiciona o suporte ao serializer nativo do .net core 3.
+            // Adiciona o suporte ao serializer Newtonsoft.
             _client.UseNewtonsoftJson();
 
             var services = ServiceProviderBuilder
@@ -27,9 +25,9 @@ namespace Codenation.CaesarCrypto.ConsoleApp.Models
                 .Value;
         }
 
-        public CryptoAnswer DownloadFile()
+        public CryptoAnswer DownloadData()
         {
-            if (File.Exists("answer.json"))
+            if (CryptoAnswer.HasFile)
                 return CryptoAnswer.RecreateObject();
 
             var request = new RestRequest("/generate-data",

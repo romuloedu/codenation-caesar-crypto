@@ -11,7 +11,7 @@ namespace Codenation.CaesarCrypto.ConsoleApp
             var api = new CodenationApi();
 
             // Faz o download do desafio.
-            var response = api.DownloadFile();
+            var response = api.DownloadData();
 
             // Salva o resultado no arquivo answer.json.
             response.SaveFile();
