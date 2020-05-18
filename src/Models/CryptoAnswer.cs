@@ -1,4 +1,5 @@
 using System.IO;
+using System.Text;
 using Newtonsoft.Json;
 
 namespace Codenation.CaesarCrypto.ConsoleApp.Models
@@ -42,6 +43,9 @@ namespace Codenation.CaesarCrypto.ConsoleApp.Models
             set;
         }
 
+        [JsonIgnore]
+        public string FileName => FILE_NAME;
+
         public static bool HasFile => File.Exists(FILE_NAME);
 
         public static CryptoAnswer RecreateObject()
@@ -59,7 +63,8 @@ namespace Codenation.CaesarCrypto.ConsoleApp.Models
 
         public void SaveFile()
         {
-            using (TextWriter writer = new StreamWriter(FILE_NAME))
+            using (TextWriter writer = new StreamWriter(FILE_NAME,
+                false, Encoding.Default))
             {
                 JsonSerializer serializer = new JsonSerializer();
 

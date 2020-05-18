@@ -50,7 +50,7 @@ namespace Codenation.CaesarCrypto.ConsoleApp.Models
 
                 foreach (byte b in hash)
                 {
-                    sb.Append(b.ToString("X2"));
+                    sb.Append(b.ToString("x2"));
                 }
             }
 

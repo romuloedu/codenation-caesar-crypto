@@ -13,12 +13,12 @@ namespace Codenation.CaesarCrypto.ConsoleApp
             Console.WriteLine("Realizando o download dos dados...");
 
             // Faz o download do desafio.
-            CryptoAnswer response = api.DownloadData();
+            CryptoAnswer answer = api.DownloadData();
 
-            Console.WriteLine("Salvando o answer.json origina...");
+            Console.WriteLine("Salvando o answer.json original...");
 
             // Salva o arquivo com o conteúdo original.
-            response.SaveFile();
+            answer.SaveFile();
 
             // Cria a instância da classe de criptografia.
             CryptoService cryptoService = new CryptoService();
@@ -26,19 +26,22 @@ namespace Codenation.CaesarCrypto.ConsoleApp
             Console.WriteLine("Descriptografando a mensagem...");
 
             // Descriptografa a mensagem recebida.
-            response.UncryptedText = cryptoService.UncryptMessage(response);
+            answer.UncryptedText = cryptoService.UncryptMessage(answer);
 
             Console.WriteLine("Calculando o hash da mensagem...");
 
             // Calcula o hash da mensagem recebida.
-            response.CryptographSummary = cryptoService.CalculateHash(response);
+            answer.CryptographSummary = cryptoService.CalculateHash(answer);
 
             Console.WriteLine("Salvando o arquivo modificado...");
 
             // Salva o resultado modificado no arquivo.
-            response.SaveFile();
+            answer.SaveFile();
 
-            Console.WriteLine("Processamento concluído.");
+            // Envia o arquivo para a API da Codenation.
+            string response = api.UploadData(answer.FileName);
+
+            Console.WriteLine($"Resultado do envio: {response}");
         }
     }
 }

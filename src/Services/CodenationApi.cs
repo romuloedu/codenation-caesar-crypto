@@ -41,5 +41,21 @@ namespace Codenation.CaesarCrypto.ConsoleApp.Models
 
             return response.Data;
         }
+
+        public string UploadData(string path)
+        {
+            var request = new RestRequest("/submit-solution",
+                DataFormat.Json);
+
+            request.AddQueryParameter("token",
+                _codenationSecrets.Token);
+
+            request.AddFile("answer", path,
+                "multipart/form-data");
+
+            IRestResponse response = _client.Post(request);
+
+            return response.Content;
+        }
     }
 }
