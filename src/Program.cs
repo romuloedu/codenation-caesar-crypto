@@ -8,15 +8,37 @@ namespace Codenation.CaesarCrypto.ConsoleApp
         static void Main(string[] args)
         {
             // Cria o serviço que encapsula a api.
-            var api = new CodenationApi();
+            CodenationApi api = new CodenationApi();
+
+            Console.WriteLine("Realizando o download dos dados...");
 
             // Faz o download do desafio.
-            var response = api.DownloadData();
+            CryptoAnswer response = api.DownloadData();
 
-            // Salva o resultado no arquivo answer.json.
+            Console.WriteLine("Salvando o answer.json origina...");
+
+            // Salva o arquivo com o conteúdo original.
             response.SaveFile();
 
-            Console.ReadLine();
+            // Cria a instância da classe de criptografia.
+            CryptoService cryptoService = new CryptoService();
+
+            Console.WriteLine("Descriptografando a mensagem...");
+
+            // Descriptografa a mensagem recebida.
+            response.UncryptedText = cryptoService.UncryptMessage(response);
+
+            Console.WriteLine("Calculando o hash da mensagem...");
+
+            // Calcula o hash da mensagem recebida.
+            response.CryptographSummary = cryptoService.CalculateHash(response);
+
+            Console.WriteLine("Salvando o arquivo modificado...");
+
+            // Salva o resultado modificado no arquivo.
+            response.SaveFile();
+
+            Console.WriteLine("Processamento concluído.");
         }
     }
 }
