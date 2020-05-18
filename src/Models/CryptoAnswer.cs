@@ -40,6 +40,19 @@ namespace Codenation.CaesarCrypto.ConsoleApp.Models
             set;
         }
 
+        public static CryptoAnswer RecreateObject()
+        {
+            CryptoAnswer result = null;
+
+            using (TextReader reader = new StreamReader("answer.json"))
+            {
+                result = JsonConvert.DeserializeObject<CryptoAnswer>(
+                    reader.ReadToEnd());
+            };
+
+            return result;
+        }
+
         public void SaveFile()
         {
             using (TextWriter writer = new StreamWriter("answer.json"))

@@ -1,3 +1,4 @@
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -28,6 +29,9 @@ namespace Codenation.CaesarCrypto.ConsoleApp.Models
 
         public CryptoAnswer DownloadFile()
         {
+            if (File.Exists("answer.json"))
+                return CryptoAnswer.RecreateObject();
+
             var request = new RestRequest("/generate-data",
                 DataFormat.Json);
 
