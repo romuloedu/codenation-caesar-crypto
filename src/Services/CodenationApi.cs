@@ -40,7 +40,7 @@ namespace Codenation.CaesarCrypto.ConsoleApp.Services
                 _codenationSecrets.Token);
 
             IRestResponse<CryptoAnswer> response = _client
-                .Execute<CryptoAnswer>(request);
+                .Execute<CryptoAnswer>(request, Method.GET);
 
             return response.Data;
         }
@@ -56,7 +56,7 @@ namespace Codenation.CaesarCrypto.ConsoleApp.Services
             request.AddFile("answer", path,
                 "multipart/form-data");
 
-            IRestResponse response = _client.Post(request);
+            IRestResponse response = _client.Execute(request, Method.POST);
 
             return response.Content;
         }

@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Codenation.CaesarCrypto.Services.Tests
 {
-    public class CodenationsutTests
+    public partial class CodenationsutTests
     {
         [Fact]
         public void Constructor_WhenInstanceIsCreatedWithoutParam_ReturnsAnRestClient()
