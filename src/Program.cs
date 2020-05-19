@@ -1,5 +1,6 @@
 ﻿using System;
 using Codenation.CaesarCrypto.ConsoleApp.Models;
+using Codenation.CaesarCrypto.ConsoleApp.Services;
 
 namespace Codenation.CaesarCrypto.ConsoleApp
 {
@@ -39,9 +40,9 @@ namespace Codenation.CaesarCrypto.ConsoleApp
             answer.SaveFile();
 
             // Envia o arquivo para a API da Codenation.
-            string response = api.UploadData(answer.FileName);
+            // string response = api.UploadData(answer.FileName);
 
-            Console.WriteLine($"Resultado do envio: {response}");
+            // Console.WriteLine($"Resultado do envio: {response}");
         }
     }
 }

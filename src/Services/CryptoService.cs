@@ -1,8 +1,9 @@
 using System;
 using System.Security.Cryptography;
 using System.Text;
+using Codenation.CaesarCrypto.ConsoleApp.Models;
 
-namespace Codenation.CaesarCrypto.ConsoleApp.Models
+namespace Codenation.CaesarCrypto.ConsoleApp.Services
 {
     public class CryptoService
     {

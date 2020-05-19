@@ -1,24 +1,27 @@
+using Codenation.CaesarCrypto.ConsoleApp.Models;
+using Codenation.CaesarCrypto.ConsoleApp.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
 
-namespace Codenation.CaesarCrypto.ConsoleApp.Models
+namespace Codenation.CaesarCrypto.ConsoleApp.Services
 {
     public class CodenationApi
     {
-        private IRestClient _client;
-        private CodenationSecrets _codenationSecrets;
+        private readonly IRestClient _client;
+        private readonly CodenationSecrets _codenationSecrets;
+        public IRestClient Client => _client;
 
-        public CodenationApi()
+        public CodenationApi(IRestClient client = null)
         {
-            _client = new RestClient("https://api.codenation.dev/v1/challenge/dev-ps");
+            _client = CodenationApiFactory.Create(client);
 
             // Adiciona o suporte ao serializer Newtonsoft.
             _client.UseNewtonsoftJson();
 
             var services = ServiceProviderBuilder
-            .GetServiceProvider();
+                .GetServiceProvider();
 
             _codenationSecrets = services
                 .GetRequiredService<IOptions<CodenationSecrets>>()
